@@ -10,10 +10,10 @@ import json
 import datetime
 import requests
 
-# 1. 설정값
+# 1. 설정값 (GitHub Secrets에서 안전하게 로드)
 KAKAO_TOKEN_FILE = os.path.join(os.path.dirname(__file__), "kakao_token.json")
-REST_API_KEY = os.environ.get("KAKAO_REST_API_KEY", "7d96bc8cb2bae33dcc971e8359885142")
-CLIENT_SECRET = os.environ.get("KAKAO_CLIENT_SECRET", "mhWBNuOtcBAO67ShqKnDK9JtdrVYdUGe")
+REST_API_KEY = os.environ.get("KAKAO_REST_API_KEY", "")
+CLIENT_SECRET = os.environ.get("KAKAO_CLIENT_SECRET", "")
 
 def get_current_date_str():
     now = datetime.datetime.now()
@@ -95,13 +95,16 @@ def send_kakao_memo(access_token, message_text):
         "Content-Type": "application/x-www-form-urlencoded"
     }
     
+    # 내 깃허브 웹사이트 주소
+    app_url = "https://kjhan0430-ops.github.io/daily-ai-briefing/"
+    
     payload = {
         "template_object": json.dumps({
             "object_type": "text",
             "text": message_text,
             "link": {
-                "web_url": "https://www.youtube.com",
-                "mobile_web_url": "https://www.youtube.com"
+                "web_url": app_url,
+                "mobile_web_url": app_url
             },
             "button_title": "AI 대시보드 열기"
         }, ensure_ascii=False)

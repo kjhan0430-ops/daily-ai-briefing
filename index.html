@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>데일리 AI 에이전트 & 실무 트렌드 브리핑</title>
+  
+  <!-- PWA 모바일 앱 지원 메타 태그 -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AI브리핑">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              claude: '#d97706',
+              gemini: '#2563eb',
+              antigravity: '#8b5cf6',
+              chatgpt: '#10b981',
+              dark: '#090d16',
+              card: '#0f172a',
+              border: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .tab-btn.active-domestic {
+      color: #10b981;
+      border-bottom: 2px solid #10b981;
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .tab-btn.active-global {
+      color: #38bdf8;
+      border-bottom: 2px solid #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    /* iOS Safe Area 대응 */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-slate-100 font-sans min-h-screen selection:bg-emerald-500 selection:text-white pb-28">
+
+  <!-- ==================== 상단 네비게이션 & 헤더 ==================== -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#090d16]/95 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
+          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+              데일리 AI 에이전트 브리핑
+            </h1>
+            <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              PWA App
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">매일 아침 8시 국내외 AI 유튜버 실무 브리핑</p>
+        </div>
+      </div>
+
+      <!-- 상단 액션 바 -->
+      <div class="flex items-center gap-2">
+        <!-- 카카오톡 아침 8시 수신 및 공유 버튼 -->
+        <button onclick="openKakaoGuideModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FEE500] hover:bg-[#FADA0A] text-[#191919] text-xs font-bold transition shadow-sm">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+          <span>카톡 아침8시 받기</span>
+        </button>
+
+        <!-- 스마트폰 앱 설치 안내 버튼 -->
+        <button onclick="openAppInstallGuide()" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-semibold border border-emerald-500/30 transition">
+          <i data-lucide="smartphone" class="w-4 h-4"></i>
+          <span>폰에 앱 설치</span>
+        </button>
+
+        <button onclick="resetToOfficialData()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700" title="데이터 새로고침">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-emerald-400"></i>
+        </button>
+
+        <button onclick="openAddModal()" class="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>등록</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 메인 컨테이너 ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 space-y-6">
+
+    <!-- 모바일 전용 빠른 바로가기 배너 -->
+    <div class="sm:hidden glass-panel p-3 rounded-2xl border border-emerald-500/30 flex items-center justify-between gap-2 bg-gradient-to-r from-emerald-950/40 to-slate-900">
+      <div class="flex items-center gap-2">
+        <i data-lucide="smartphone" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+        <div class="text-xs">
+          <b class="text-white">스마트폰 앱으로 쓰기</b>
+          <p class="text-[10px] text-slate-400">브라우저 메뉴에서 '홈 화면에 추가'를 누르세요</p>
+        </div>
+      </div>
+      <button onclick="openAppInstallGuide()" class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-bold shrink-0">
+        방법 보기
+      </button>
+    </div>
+
+    <!-- 1. 핵심 요약 KPI 카드 -->
+    <section>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <!-- 국내 유튜버 -->
+        <div class="glass-panel p-3.5 rounded-xl border-l-4 border-l-emerald-500 hover:border-slate-600 transition cursor-pointer" onclick="switchTab('domestic')">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-emerald-400 font-bold">🇰🇷 국내 실무</span>
+            <span class="p-1 rounded-lg bg-emerald-500/10 text-emerald-400"><i data-lucide="zap" class="w-3.5 h-3.5"></i></span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-1.5">
+            <span id="statDomesticCount" class="text-xl font-bold text-white">5</span>
+            <span class="text-xs text-emerald-400">채널 연동</span>
+          </div>
+          <p class="text-[11px] text-slate-400 truncate mt-0.5">조코딩 · 테디노트 · 지피터스</p>
+        </div>
+
+        <!-- 해외 유튜버 -->
+        <div class="glass-panel p-3.5 rounded-xl border-l-4 border-l-blue-500 hover:border-slate-600 transition cursor-pointer" onclick="switchTab('global')">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-blue-400 font-bold">🌏 해외 트렌드</span>
+            <span class="p-1 rounded-lg bg-blue-500/10 text-blue-400"><i data-lucide="globe" class="w-3.5 h-3.5"></i></span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-1.5">
+            <span id="statGlobalCount" class="text-xl font-bold text-white">4</span>
+            <span class="text-xs text-blue-400">채널 연동</span>
+          </div>
+          <p class="text-[11px] text-slate-400 truncate mt-0.5">Wes Roth · Matthew Berman</p>
+        </div>
+
+        <!-- 핵심 툴 -->
+        <div class="glass-panel p-3.5 rounded-xl border-l-4 border-l-purple-500 hover:border-slate-600 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-purple-400 font-bold">⚡ 핵심 툴</span>
+            <span class="p-1 rounded-lg bg-purple-500/10 text-purple-400"><i data-lucide="cpu" class="w-3.5 h-3.5"></i></span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-1.5">
+            <span class="text-xl font-bold text-white">3+1</span>
+            <span class="text-xs text-purple-400">도구 집중</span>
+          </div>
+          <p class="text-[11px] text-slate-400 truncate mt-0.5">Claude Code · AI Studio · Antigravity</p>
+        </div>
+
+        <!-- 프롬프트 -->
+        <div class="glass-panel p-3.5 rounded-xl border-l-4 border-l-amber-500 hover:border-slate-600 transition">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-amber-400 font-bold">🤖 실전 프롬프트</span>
+            <span class="p-1 rounded-lg bg-amber-500/10 text-amber-400"><i data-lucide="copy" class="w-3.5 h-3.5"></i></span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-1.5">
+            <span class="text-xl font-bold text-white">7</span>
+            <span class="text-xs text-amber-400">즉시 복사</span>
+          </div>
+          <p class="text-[11px] text-slate-400 truncate mt-0.5">Claude · Gemini · ChatGPT</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 메인 탭 영역 (기본: 🇰🇷 국내 유튜버 트렌드) -->
+    <section class="space-y-4">
+      <div class="border-b border-slate-800 flex items-center justify-between">
+        <nav class="flex space-x-2" aria-label="Tabs">
+          <!-- 탭 1: 국내 유튜버 트렌드 -->
+          <button onclick="switchTab('domestic')" id="tab-domestic-btn" class="tab-btn active-domestic px-4 py-3 text-sm font-bold rounded-t-lg flex items-center gap-2 transition">
+            <span class="text-lg">🇰🇷</span>
+            <span>국내 유튜버 실무</span>
+            <span class="px-1.5 py-0.2 rounded-full text-xs bg-emerald-500/20 text-emerald-300 font-bold" id="badgeDomestic">5</span>
+          </button>
+
+          <!-- 탭 2: 해외 유튜버 트렌드 -->
+          <button onclick="switchTab('global')" id="tab-global-btn" class="tab-btn px-4 py-3 text-sm font-bold rounded-t-lg text-slate-400 hover:text-slate-200 flex items-center gap-2 transition">
+            <span class="text-lg">🌏</span>
+            <span>해외 글로벌 트렌드</span>
+            <span class="px-1.5 py-0.2 rounded-full text-xs bg-blue-500/20 text-blue-300 font-bold" id="badgeGlobal">4</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- ==================== [핵심 기능] 국내 유튜버 전용 실시간 검색 & 탐색 센터 ==================== -->
+      <div id="domesticSearchCenter" class="glass-panel p-4 sm:p-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/30 space-y-3.5">
+        
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400"><i data-lucide="search" class="w-4 h-4"></i></span>
+              <span>국내 AI 유튜버 이름 직접 검색 & 실시간 탐색</span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">
+              원하시는 유튜버 이름(예: <b>조코딩, 테디노트, 노마드코더, 슈카월드, 1분만</b> 등)을 입력하시면 유튜브에서 최신 영상을 즉시 찾아드립니다.
+            </p>
+          </div>
+
+          <!-- 검색바 & 즐겨찾기 버튼 -->
+          <div class="flex items-center gap-2 w-full md:w-auto">
+            <div class="relative flex-1 md:w-64">
+              <input 
+                type="text" 
+                id="youtuberNameInput" 
+                placeholder="유튜버 이름 입력 (예: 조코딩)" 
+                class="w-full px-3.5 py-2 bg-slate-950 border border-emerald-500/50 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-400"
+                onkeydown="if(event.key === 'Enter') handleYouTuberSearch()"
+              >
+            </div>
+            <button onclick="handleYouTuberSearch()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-1 transition shrink-0">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+              <span>검색</span>
+            </button>
+            <button onclick="saveCurrentYouTuberToFavorites()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-300 rounded-xl text-xs font-medium border border-emerald-500/30 flex items-center gap-1 transition shrink-0" title="즐겨찾기에 저장">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 실시간 검색 결과 배너 -->
+        <div id="liveSearchResultBanner" class="hidden p-3 rounded-xl bg-slate-950 border border-emerald-500/50 flex flex-wrap items-center justify-between gap-2 shadow-lg">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+            <span class="text-xs text-white font-bold">
+              <span id="searchedTargetName" class="text-emerald-400 text-sm"></span> 유튜버의 최신 영상 검색 결과
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <a id="openYouTubeDirectBtn" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 transition">
+              <i data-lucide="youtube" class="w-4 h-4 fill-current"></i>
+              <span>유튜브에서 최신 영상 모두 보기 ↗</span>
+            </a>
+            <button onclick="resetYouTuberSearch()" class="px-2 py-1 text-xs text-slate-400 hover:text-white">
+              초기화
+            </button>
+          </div>
+        </div>
+
+        <!-- 즐겨찾는 유튜버 칩 -->
+        <div class="pt-2 border-t border-slate-800/80">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="bookmark" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>자주 찾는 국내 AI 유튜버:</span>
+            </span>
+          </div>
+          <div id="favoriteChipsContainer" class="flex flex-wrap items-center gap-2">
+            <!-- 동적으로 렌더링됨 -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- [탭 1] 국내 유튜버 트렌드 카드 목록 -->
+      <div id="tab-domestic" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 동적으로 렌더링됨 -->
+      </div>
+
+      <!-- [탭 2] 해외 유튜버 트렌드 카드 목록 -->
+      <div id="tab-global" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
+        <!-- 동적으로 렌더링됨 -->
+      </div>
+    </section>
+
+    <!-- 3. 핵심 집중 타겟 툴 섹션 -->
+    <section class="pt-2 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="crosshair" class="w-5 h-5 text-cyan-400"></i>
+            핵심 집중 타겟 툴 & 실무 가이드
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">에이전트 개발 및 실무 활용 4대 테크 스택</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- 3-1. 클로드 코드 -->
+        <div class="glass-panel p-4 rounded-2xl border-t-4 border-t-amber-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                <i data-lucide="terminal" class="w-4 h-4 text-amber-400"></i>
+                클로드 코드 <span class="text-xs font-normal text-amber-400 font-mono">Claude Code</span>
+              </h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/20 text-amber-300">CLI</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 leading-relaxed mb-3">
+              프로젝트 루트에 <code class="text-amber-300 font-mono">.clauderules</code> 파일을 배치해 코딩 컨벤션과 아키텍처 규칙을 사전 주입하면 오류율을 60% 절감합니다.
+            </div>
+          </div>
+          <button onclick="copyToolPrompt('claude_code')" class="w-full py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-xs font-medium border border-amber-500/30 flex items-center justify-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>추천 .clauderules 복사</span>
+          </button>
+        </div>
+
+        <!-- 3-2. 구글 AI 스튜디오 -->
+        <div class="glass-panel p-4 rounded-2xl border-t-4 border-t-blue-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                <i data-lucide="wrench" class="w-4 h-4 text-blue-400"></i>
+                구글 AI 스튜디오 <span class="text-xs font-normal text-blue-400 font-mono">AI Studio</span>
+              </h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-500/20 text-blue-300">Grounding</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 leading-relaxed mb-3">
+              200만 토큰 컨텍스트 창에 긴 문서를 넣고, <b>Structured Output(JSON 모드)</b>과 Context Caching을 켜서 비용을 절감하세요.
+            </div>
+          </div>
+          <button onclick="copyToolPrompt('ai_studio')" class="w-full py-1.5 rounded-lg bg-blue-500/15 hover:bg-blue-500/25 text-blue-300 text-xs font-medium border border-blue-500/30 flex items-center justify-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>시스템 프롬프트 복사</span>
+          </button>
+        </div>
+
+        <!-- 3-3. 안티그래비티 -->
+        <div class="glass-panel p-4 rounded-2xl border-t-4 border-t-purple-500 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+                안티그래비티 <span class="text-xs font-normal text-purple-400 font-mono">Antigravity</span>
+              </h3>
+              <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-purple-500/20 text-purple-300">Agentic</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 leading-relaxed mb-3">
+              단일 파일 웹앱 제작 시 <code class="text-purple-300 font-mono">/plan</code>으로 설계를 잡고, PWA 메타 태그와 반응형 UI를 적용하여 즉시 모바일 배포 가능합니다.
+            </div>
+          </div>
+          <button onclick="copyToolPrompt('antigravity')" class="w-full py-1.5 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 text-xs font-medium border border-purple-500/30 flex items-center justify-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span>웹 빌드 프롬프트 복사</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 주요 LLM별 실전 프롬프트 & 성능 비교 -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="bot" class="w-5 h-5 text-emerald-400"></i>
+          주요 LLM 실전 비교 & 즉시 복사 프롬프트
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- 프롬프트 1 -->
+        <div class="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
+          <div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">Claude</span>
+            <h4 class="text-xs font-bold text-white mt-1">시니어 관점 코드 리팩토링 & 보안 점검</h4>
+          </div>
+          <button onclick="copyPrompt('prompt_refactor')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-medium rounded-lg border border-amber-500/30 flex items-center gap-1 shrink-0">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> 복사
+          </button>
+        </div>
+
+        <!-- 프롬프트 2 -->
+        <div class="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between gap-3">
+          <div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300">Gemini</span>
+            <h4 class="text-xs font-bold text-white mt-1">초장문 문서 핵심 요약 & JSON 추출</h4>
+          </div>
+          <button onclick="copyPrompt('prompt_gemini_doc')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-blue-300 text-xs font-medium rounded-lg border border-blue-500/30 flex items-center gap-1 shrink-0">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> 복사
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== 카카오톡 아침 8시 자동 수신 안내 모달 ==================== -->
+  <div id="kakaoGuideModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="glass-panel border border-slate-700/80 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeKakaoGuideModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-[#FEE500] text-[#191919] flex items-center justify-center font-bold">
+          <i data-lucide="message-circle" class="w-6 h-6 fill-current"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">매일 아침 8시 카카오톡으로 받기</h3>
+          <p class="text-xs text-slate-400">카카오톡 메시지로 오늘자 브리핑을 받는 방법</p>
+        </div>
+      </div>
+
+      <!-- 방법 1: 지금 즉시 카톡 공유 -->
+      <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i> 1. 지금 바로 카톡으로 보내기
+        </span>
+        <p class="text-xs text-slate-300">오늘 아침 브리핑 요약을 복사하여 카카오톡 '나와의 채팅'에 바로 보낼 수 있습니다.</p>
+        <button onclick="shareToKakaoNow()" class="w-full py-2 bg-[#FEE500] hover:bg-[#FADA0A] text-[#191919] rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition shadow-md">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+          <span>오늘 브리핑 복사 & 카카오톡 보내기</span>
+        </button>
+      </div>
+
+      <!-- 방법 2: 매일 아침 8시 100% 자동 발송 (Python 스크립트) -->
+      <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 text-xs text-slate-300 leading-relaxed">
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">
+          <i data-lucide="clock" class="w-3.5 h-3.5"></i> 2. 매일 아침 8시 자동 발송 시스템
+        </span>
+        <p>프로젝트 폴더에 <b>매일 아침 8시 자동 발송 스크립트</b>가 포함되어 있습니다:</p>
+        <ul class="list-disc list-inside space-y-1 text-slate-400 text-[11px]">
+          <li><code class="text-emerald-300">send_kakao_briefing.py</code>: 카카오톡 나에게 보내기 발송기</li>
+          <li><code class="text-emerald-300">setup_kakao.py</code>: 카카오 API 최초 1회 인증 도우미</li>
+        </ul>
+        <div class="p-2 rounded bg-slate-950 font-mono text-[10px] text-slate-400">
+          # 1회 인증 실행<br>
+          python setup_kakao.py<br>
+          # 윈도우 작업 스케줄러에 '매일 08:00' 등록 시 끝!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 모바일 앱 설치 가이드 모달 ==================== -->
+  <div id="appInstallModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="glass-panel border border-slate-700/80 rounded-2xl max-w-md w-full p-6 relative shadow-2xl space-y-4">
+      <button onclick="closeAppInstallGuide()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+          <i data-lucide="smartphone" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">스마트폰에 앱으로 설치하기</h3>
+          <p class="text-xs text-slate-400">PWA 기술로 앱스토어 설치 없이 1초 완성</p>
+        </div>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-300">
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+          <b class="text-emerald-400 block">📱 갤럭시 (크롬 / 삼성 인터넷)</b>
+          <p>1. 모바일 브라우저 우측 상단 메뉴(⋮) 클릭</p>
+          <p>2. <b>[앱 설치]</b> 또는 <b>[홈 화면에 추가]</b> 터치</p>
+          <p>3. 스마트폰 바탕화면에 앱 아이콘이 생성됩니다!</p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+          <b class="text-blue-400 block">🍎 아이폰 (Safari 브라우저)</b>
+          <p>1. Safari 하단 중앙의 <b>[공유 아이콘]</b>(네모 위 화살표) 터치</p>
+          <p>2. 아래로 스크롤하여 <b>[홈 화면에 추가]</b> 선택</p>
+          <p>3. 주소창 없는 깔끔한 전체화면 앱으로 실행됩니다!</p>
+        </div>
+      </div>
+
+      <button onclick="closeAppInstallGuide()" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold">
+        확인 완료
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== 상세 보기 모달 ==================== -->
+  <div id="detailModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="glass-panel border border-slate-700/80 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl">
+      <button onclick="closeDetailModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ==================== 브리핑 등록 모달 ==================== -->
+  <div id="addModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="glass-panel border border-slate-700/80 rounded-2xl max-w-xl w-full p-6 relative shadow-2xl">
+      <button onclick="closeAddModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+          <i data-lucide="plus" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-base font-bold text-white">새 브리핑 항목 직접 등록</h3>
+      </div>
+
+      <form id="addBriefingForm" onsubmit="submitNewBriefing(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">분류 선택 *</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-800 bg-slate-900 cursor-pointer">
+              <input type="radio" name="category" value="domestic" checked class="text-emerald-500">
+              <span class="text-xs text-emerald-400 font-bold">🇰🇷 국내 유튜버 실무</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-800 bg-slate-900 cursor-pointer">
+              <input type="radio" name="category" value="global" class="text-blue-500">
+              <span class="text-xs text-blue-400 font-bold">🌏 해외 글로벌 트렌드</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">영상 제목 *</label>
+          <input type="text" id="addTitle" required placeholder="예: 조코딩 - AI 에이전트로 업무 자동화 구축하기" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">유튜버 / 채널명 *</label>
+            <input type="text" id="addChannel" required placeholder="예: 조코딩" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">태그 (쉼표 구분)</label>
+            <input type="text" id="addTags" placeholder="에이전트, 실무, 자동화" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">실제 유튜브 URL *</label>
+          <input type="url" id="addUrl" required placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">핵심 요약 (3줄 이내) *</label>
+          <textarea id="addSummary" required rows="3" placeholder="1. 이 영상의 핵심 주제&#10;2. 실무 적용 팁&#10;3. 결론" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-100 focus:outline-none focus:border-emerald-500 resize-none"></textarea>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800 flex justify-end gap-2">
+          <button type="button" onclick="closeAddModal()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs">
+            취소
+          </button>
+          <button type="submit" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold shadow-md">
+            저장
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 플로팅 퀵 메모장 패널 -->
+  <aside id="quickNotePanel" class="fixed right-4 bottom-6 w-80 max-w-[calc(100vw-2rem)] glass-panel border border-slate-700/80 rounded-2xl shadow-2xl p-4 z-50 transform translate-y-6 opacity-0 pointer-events-none transition-all duration-300 flex flex-col">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2.5">
+      <h3 class="text-xs font-bold text-white flex items-center gap-1.5">
+        <i data-lucide="edit-3" class="w-3.5 h-3.5 text-purple-400"></i>
+        <span>실무 퀵 메모장</span>
+      </h3>
+      <button onclick="toggleQuickNote()" class="text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <textarea 
+      id="quickNoteText" 
+      rows="6"
+      oninput="saveNoteAuto()"
+      placeholder="테스트할 프롬프트, 메모 등을 기록하세요..."
+      class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 leading-relaxed resize-none"
+    ></textarea>
+
+    <div class="mt-2 flex items-center justify-between text-[11px]">
+      <span id="noteCharCount" class="text-slate-500">0자</span>
+      <div class="flex gap-1">
+        <button onclick="copyQuickNote()" class="px-2 py-1 bg-slate-800 text-slate-300 rounded text-[11px]">복사</button>
+        <button onclick="clearQuickNote()" class="px-2 py-1 bg-red-950/40 text-red-300 rounded text-[11px]">지우기</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 토스트 알림 컨테이너 -->
+  <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ==================== 프론트엔드 스크립트 ==================== -->
+  <script>
+    // PWA Service Worker 등록
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('PWA ServiceWorker 등록 성공:', reg.scope))
+          .catch(err => console.log('ServiceWorker 등록 실패:', err));
+      });
+    }
+
+    // ----------------------------------------------------
+    // 공식 검증된 국내/해외 유튜버 데이터
+    // ----------------------------------------------------
+    const OFFICIAL_DOMESTIC_ITEMS = [
+      {
+        id: "dom_1",
+        title: "맥미니 한 대로 AI 직원 세팅하기: 업무 자동화 에이전트 실전 팁",
+        channel: "조코딩",
+        channelUrl: "https://www.youtube.com/@jocoding",
+        duration: "약 19분",
+        updatedAt: "인기 실무",
+        tags: ["에이전트", "업무자동화", "실무"],
+        videoUrl: "https://www.youtube.com/watch?v=F9ppxTBO_mM",
+        summaryPoints: [
+          "비개발자도 맥미니나 로컬 PC 한 대로 나만의 자율 AI 비서 및 업무 자동화 에이전트 구축",
+          "이메일 초안 작성, 캘린더 정리, 유튜브 트렌드 데이터 리포트 생성을 완전 자동으로 위임",
+          "실무 팁: 복잡한 프롬프트 대신 수행할 업무의 인풋-아웃풋 템플릿을 고정해두면 실패율 90% 감소"
+        ],
+        details: "조코딩 채널의 실제 AI 직원 구축 영상입니다. 백오피스 업무를 AI에게 일임하여 생산성을 극대화합니다."
+      },
+      {
+        id: "dom_2",
+        title: "LangChain & LangGraph 에이전트로 ChatGPT 업무 자동화 완전 정복",
+        channel: "테디노트",
+        channelUrl: "https://www.youtube.com/@teddynote",
+        duration: "약 35분",
+        updatedAt: "심층 강의",
+        tags: ["에이전트", "LangChain", "RAG"],
+        videoUrl: "https://www.youtube.com/results?search_query=%ED%85%8C%EB%94%94%EB%85%B8%ED%8A%B8+LangGraph+%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8",
+        summaryPoints: [
+          "단순 질의응답을 넘어 상태(State)와 순환 루프를 제어하는 LangGraph 기반 멀티 에이전트 아키텍처",
+          "사내 문서 기반 RAG와 도구 호출(Tool Calling)을 결합하여 환각 없이 기업 맞춤 답변을 도출",
+          "실무 팁: 에이전트에게 한 번에 모든 권한을 주지 말고 읽기 전용과 쓰기 권한을 명확히 분리할 것"
+        ],
+        details: "테디노트 채널의 LangGraph 기반 멀티 에이전트 실무 강의입니다."
+      },
+      {
+        id: "dom_3",
+        title: "1인 풀스택을 위한 AI 코딩 에이전트와 웹 빌드 고속 워크플로",
+        channel: "지피터스",
+        channelUrl: "https://www.youtube.com/@gpters",
+        duration: "약 22분",
+        updatedAt: "커뮤니티 팁",
+        tags: ["웹빌드", "안티그래비티", "실무"],
+        videoUrl: "https://www.youtube.com/results?search_query=%EC%A7%80%ED%94%BC%ED%84%B0%EC%8A%A4+AI+%EC%BD%94%EB%94%A9+%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8",
+        summaryPoints: [
+          "비개발자/기획자도 AI 에이전트에게 명확한 기획안(Artifact)을 제공하여 단일 파일 반응형 웹앱 완성",
+          "Tailwind CSS CDN과 브라우저 로컬스토리지로 별도 백엔드 없이 동작하는 MVP 출시 팁",
+          "실무 팁: 처음부터 코딩을 시키지 말고 기능 요구사항과 화면 구조를 텍스트로 먼저 검증할 것"
+        ],
+        details: "지피터스 AI LAB의 고속 프로토타이핑 워크플로입니다."
+      },
+      {
+        id: "dom_4",
+        title: "2026 실무 LLM 3대장 완벽 비교: Claude vs Gemini vs ChatGPT 실전 선택 기준",
+        channel: "일잘러 장피엠",
+        channelUrl: "https://www.youtube.com/@jangpm",
+        duration: "약 28분",
+        updatedAt: "전략 비교",
+        tags: ["실무", "클로드코드", "AI스튜디오"],
+        videoUrl: "https://www.youtube.com/results?search_query=%EC%9D%BC%EC%9E%98%EB%9F%AC+%EC%9E%A5%ED%94%BC%EC%97%A0+LLM+%EB%B9%84%EA%B5%90",
+        summaryPoints: [
+          "문서 작성과 코딩은 Claude, 방대한 자료 분석과 실시간 팩트체크는 Gemini, 기획과 논리는 ChatGPT 추천",
+          "각 모델별 구독료와 토큰 단가를 고려한 업무 최적화 분업 포트폴리오 설계",
+          "실무 팁: 한 모델만 고집하지 말고 용도별로 API 및 전용 인터페이스를 분리하여 비용 절약"
+        ],
+        details: "일잘러 장피엠의 모델별 맞춤 실무 배치 전략입니다."
+      },
+      {
+        id: "dom_5",
+        title: "코딩 없이 AI 에이전트로 웹앱 및 자동화 도구 만드는 법",
+        channel: "노마드 코더",
+        channelUrl: "https://www.youtube.com/@nomadcoders",
+        duration: "약 15분",
+        updatedAt: "최신 팁",
+        tags: ["에이전트", "웹빌드", "실무"],
+        videoUrl: "https://www.youtube.com/results?search_query=%EB%85%B8%EB%A7%88%EB%93%9C%EC%BD%94%EB%8D%94+AI+%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8",
+        summaryPoints: [
+          "개발 생태계에 불어닥친 자율 AI 에이전트 혁명과 개발자의 역할 변화",
+          "Claude Code 및 터미널 에이전트를 실전에 도입할 때 주의해야 할 보안 및 컨벤션 원칙",
+          "실무 팁: 에이전트가 만든 코드를 무작정 배포하지 말고 최소한의 코드 리뷰 규칙을 수립할 것"
+        ],
+        details: "노마드 코더 채널의 AI 코딩 에이전트 실무 조언입니다."
+      }
+    ];
+
+    const OFFICIAL_GLOBAL_ITEMS = [
+      {
+        id: "glob_1",
+        title: "Claude 3.7 Sonnet & Claude Code: 자율 터미널 에이전트 완벽 분석",
+        channel: "Wes Roth",
+        channelUrl: "https://www.youtube.com/@WesRoth",
+        duration: "약 18분",
+        updatedAt: "글로벌 트렌드",
+        tags: ["클로드코드", "에이전트", "앤트로픽"],
+        videoUrl: "https://www.youtube.com/results?search_query=Wes+Roth+Claude+Code+agent",
+        summaryPoints: [
+          "Anthropic이 공개한 터미널 기반 CLI 에이전트 Claude Code의 자율 아키텍처",
+          "Thinking(하이브리드 추론) 모델과 파일 읽기/쓰기/터미널 실행 도구의 유기적 결합",
+          "실무 팁: .clauderules에 프로젝트 표준을 지정하면 자율 수정 성공률 대폭 상승"
+        ],
+        details: "Wes Roth의 Claude Code 터미널 에이전트 글로벌 리포트입니다."
+      },
+      {
+        id: "glob_2",
+        title: "Gemini 2.0 Flash & AI Studio: 200만 토큰 멀티모달 & 실무 바인딩",
+        channel: "Matthew Berman",
+        channelUrl: "https://www.youtube.com/@matthew_berman",
+        duration: "약 24분",
+        updatedAt: "글로벌 트렌드",
+        tags: ["AI스튜디오", "구글", "에이전트"],
+        videoUrl: "https://www.youtube.com/results?search_query=Matthew+Berman+Gemini+AI+Studio",
+        summaryPoints: [
+          "구글 AI 스튜디오의 시스템 인스트럭션, Structured Outputs(JSON 모드), Google Search Grounding",
+          "2시간 분량의 영상 및 500페이지 분량의 보고서를 한 번에 입력 후 핀포인트 추출",
+          "실무 팁: Context Caching 기능을 활성화하면 고정 레퍼런스 데이터 재호출 시 비용 75% 절감"
+        ],
+        details: "Matthew Berman의 Gemini 2.0 및 AI Studio 활용법입니다."
+      },
+      {
+        id: "glob_3",
+        title: "MCP(Model Context Protocol) 실전 구축: 로컬 DB와 브라우저를 에이전트에 연동",
+        channel: "AI Jason",
+        channelUrl: "https://www.youtube.com/@AIJasonZ",
+        duration: "약 15분",
+        updatedAt: "글로벌 트렌드",
+        tags: ["에이전트", "MCP", "실무"],
+        videoUrl: "https://www.youtube.com/results?search_query=AI+Jason+MCP+agents",
+        summaryPoints: [
+          "Anthropic의 오픈소스 MCP(Model Context Protocol)가 2026년 에이전트의 사실상 표준이 된 이유",
+          "Postgres DB, 파일시스템, 슬랙을 MCP 서버로 띄워 Claude/Antigravity와 원클릭 연결",
+          "실무 팁: 개발자는 API를 매번 래핑할 필요 없이 표준 MCP 서버만 구축해두면 모든 LLM과 연동 가능"
+        ],
+        details: "AI Jason의 MCP 프로토콜 아키텍처 해설입니다."
+      },
+      {
+        id: "glob_4",
+        title: "Computer Use와 브라우저 자동화: 반복적인 백오피스 업무를 AI에 맡기는 법",
+        channel: "Dave Ebbelaar",
+        channelUrl: "https://www.youtube.com/@daveebbelaar",
+        duration: "약 21분",
+        updatedAt: "글로벌 트렌드",
+        tags: ["실무", "에이전트", "자동화"],
+        videoUrl: "https://www.youtube.com/results?search_query=Dave+Ebbelaar+Computer+Use+agents",
+        summaryPoints: [
+          "마우스 클릭, 타이핑, 화면 캡처 기반 Computer Use 기술의 실무 배치 현황",
+          "기존 RPA로 만들기 까다로웠던 복합 시각적 태스크 자동화 시연",
+          "실무 팁: 고해상도 전체 화면 대신 대상 브라우저 뷰포트만 격리하여 전달할 때 속도 3배 향상"
+        ],
+        details: "Dave Ebbelaar의 Computer Use 실무 팁입니다."
+      }
+    ];
+
+    const DEFAULT_FAVORITE_YOUTUBERS = ["조코딩", "테디노트", "지피터스", "일잘러 장피엠", "노마드 코더", "개발하는 정대리"];
+
+    const PROMPT_TEMPLATES = {
+      claude_code: {
+        title: "Claude Code 추천 .clauderules",
+        content: `1. 단일 파일 작업 시 HTML, Tailwind CSS, Vanilla JS 일체형 유지\n2. 모든 UI는 자연스러운 한국어로 작성\n3. 파일 수정 전 git diff 확인`
+      },
+      ai_studio: {
+        title: "Google AI Studio 시스템 프롬프트 (JSON)",
+        content: `대용량 기술 문서를 분석하여 반드시 아래 JSON으로만 출력하세요:\n{\n  "title": "핵심 제목",\n  "key_takeaways": ["요점1", "요점2", "요점3"]\n}`
+      },
+      antigravity: {
+        title: "Antigravity 반응형 웹앱 빌드 프롬프트",
+        content: `모던 다크 모드, Tailwind CSS CDN, PWA 메타 태그, 로컬스토리지 영속화가 포함된 단일 파일 반응형 웹 애플리케이션을 빌드해줘.`
+      },
+      prompt_refactor: {
+        title: "시니어 관점 코드 리팩토링 프롬프트 (Claude)",
+        content: `당신은 수석 소프트웨어 엔지니어입니다. 아래 코드를 검토하고 성능 최적화, 메모리 누수 방지, 클린 코드 원칙에 맞게 리팩토링해주세요.\n\n[코드]:`
+      },
+      prompt_gemini_doc: {
+        title: "초장문 문서 핵심 요약 프롬프트 (Gemini)",
+        content: `첨부된 문서 전문을 분석하여 핵심 주장 3줄 요약, 정량 데이터 표, 실무 조치 사항을 정리해주세요.`
+      }
+    };
+
+    // ----------------------------------------------------
+    // 상태 및 초기화
+    // ----------------------------------------------------
+    let currentTab = 'domestic';
+    let currentSearchedYouTuber = '';
+    let domesticItems = [];
+    let globalItems = [];
+    let favoriteYouTubers = [];
+
+    const STORAGE_KEY_DOMESTIC = 'daily_ai_dom_pwa_v1';
+    const STORAGE_KEY_GLOBAL = 'daily_ai_glob_pwa_v1';
+    const STORAGE_KEY_FAVS = 'daily_ai_favs_pwa_v1';
+    const STORAGE_KEY_NOTE = 'daily_ai_note_pwa_v1';
+
+    function initApp() {
+      updateDateTime();
+      setInterval(updateDateTime, 30000);
+
+      loadData();
+      loadFavorites();
+      loadQuickNote();
+
+      switchTab('domestic');
+      renderFavoriteChips();
+
+      lucide.createIcons();
+    }
+
+    function updateDateTime() {
+      const now = new Date();
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      const dateStr = `${now.getFullYear()}. ${String(now.getMonth() + 1).padStart(2, '0')}. ${String(now.getDate()).padStart(2, '0')} (${days[now.getDay()]})`;
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      
+      const dEl = document.getElementById('currentDateStr');
+      const tEl = document.getElementById('currentTimeStr');
+      if (dEl) dEl.innerText = dateStr;
+      if (tEl) tEl.innerText = timeStr;
+    }
+
+    function loadData() {
+      try {
+        const savedDom = localStorage.getItem(STORAGE_KEY_DOMESTIC);
+        domesticItems = savedDom ? JSON.parse(savedDom) : [...OFFICIAL_DOMESTIC_ITEMS];
+        const savedGlob = localStorage.getItem(STORAGE_KEY_GLOBAL);
+        globalItems = savedGlob ? JSON.parse(savedGlob) : [...OFFICIAL_GLOBAL_ITEMS];
+      } catch (e) {
+        domesticItems = [...OFFICIAL_DOMESTIC_ITEMS];
+        globalItems = [...OFFICIAL_GLOBAL_ITEMS];
+      }
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY_DOMESTIC, JSON.stringify(domesticItems));
+        localStorage.setItem(STORAGE_KEY_GLOBAL, JSON.stringify(globalItems));
+      } catch (e) {}
+    }
+
+    function loadFavorites() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY_FAVS);
+        favoriteYouTubers = saved ? JSON.parse(saved) : [...DEFAULT_FAVORITE_YOUTUBERS];
+      } catch (e) {
+        favoriteYouTubers = [...DEFAULT_FAVORITE_YOUTUBERS];
+      }
+    }
+
+    function saveFavorites() {
+      try {
+        localStorage.setItem(STORAGE_KEY_FAVS, JSON.stringify(favoriteYouTubers));
+      } catch (e) {}
+    }
+
+    function resetToOfficialData() {
+      if (confirm('최신 공식 데이터로 초기화하시겠습니까?')) {
+        domesticItems = [...OFFICIAL_DOMESTIC_ITEMS];
+        globalItems = [...OFFICIAL_GLOBAL_ITEMS];
+        favoriteYouTubers = [...DEFAULT_FAVORITE_YOUTUBERS];
+        currentSearchedYouTuber = '';
+        saveData();
+        saveFavorites();
+        resetYouTuberSearch();
+        renderFavoriteChips();
+        renderDashboard();
+        showToast('데이터가 초기화되었습니다!', 'success');
+      }
+    }
+
+    // ----------------------------------------------------
+    // 유튜버 검색 & 즐겨찾기
+    // ----------------------------------------------------
+    function handleYouTuberSearch() {
+      const input = document.getElementById('youtuberNameInput');
+      const name = input?.value.trim();
+
+      if (!name) {
+        resetYouTuberSearch();
+        return;
+      }
+
+      currentSearchedYouTuber = name;
+      const banner = document.getElementById('liveSearchResultBanner');
+      const targetNameEl = document.getElementById('searchedTargetName');
+      const directBtn = document.getElementById('openYouTubeDirectBtn');
+
+      targetNameEl.innerText = name;
+      directBtn.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(name + ' AI 에이전트')}`;
+      banner.classList.remove('hidden');
+
+      renderDashboard();
+      showToast(`'${name}' 유튜버 검색 결과입니다.`, 'info');
+    }
+
+    function resetYouTuberSearch() {
+      currentSearchedYouTuber = '';
+      const input = document.getElementById('youtuberNameInput');
+      if (input) input.value = '';
+      document.getElementById('liveSearchResultBanner')?.classList.add('hidden');
+      renderDashboard();
+    }
+
+    function saveCurrentYouTuberToFavorites() {
+      const input = document.getElementById('youtuberNameInput');
+      const name = input?.value.trim();
+
+      if (!name) {
+        showToast('유튜버 이름을 먼저 입력해주세요.', 'error');
+        return;
+      }
+
+      if (favoriteYouTubers.includes(name)) {
+        showToast('이미 즐겨찾기에 등록된 유튜버입니다.', 'info');
+        return;
+      }
+
+      favoriteYouTubers.push(name);
+      saveFavorites();
+      renderFavoriteChips();
+      showToast(`'${name}' 유튜버가 즐겨찾기에 등록되었습니다!`, 'success');
+    }
+
+    function selectFavoriteChip(name) {
+      const input = document.getElementById('youtuberNameInput');
+      if (input) input.value = name;
+      handleYouTuberSearch();
+    }
+
+    function removeFavoriteChip(name) {
+      if (confirm(`'${name}' 유튜버를 즐겨찾기에서 제거하시겠습니까?`)) {
+        favoriteYouTubers = favoriteYouTubers.filter(y => y !== name);
+        saveFavorites();
+        if (currentSearchedYouTuber === name) resetYouTuberSearch();
+        renderFavoriteChips();
+        showToast('즐겨찾기에서 제거되었습니다.', 'info');
+      }
+    }
+
+    function renderFavoriteChips() {
+      const container = document.getElementById('favoriteChipsContainer');
+      if (!container) return;
+
+      let html = `
+        <button onclick="resetYouTuberSearch()" class="px-2.5 py-1 rounded-lg text-xs font-bold transition ${!currentSearchedYouTuber ? 'bg-emerald-500 text-white shadow-sm' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'}">
+          전체 보기
+        </button>
+      `;
+
+      favoriteYouTubers.forEach(yt => {
+        const isSelected = currentSearchedYouTuber.toLowerCase() === yt.toLowerCase();
+        const ytDirectUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(yt + ' AI 에이전트')}`;
+
+        html += `
+          <div class="inline-flex items-center rounded-lg text-xs font-semibold border transition ${isSelected ? 'bg-emerald-500/25 border-emerald-400 text-emerald-200' : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'}">
+            <button onclick="selectFavoriteChip('${yt}')" class="px-2.5 py-1 flex items-center gap-1">
+              <span>${yt}</span>
+            </button>
+            <a href="${ytDirectUrl}" target="_blank" rel="noopener noreferrer" class="px-1.5 py-1 text-slate-400 hover:text-red-400 border-l border-slate-800" title="유튜브 검색">
+              <i data-lucide="youtube" class="w-3.5 h-3.5"></i>
+            </a>
+            <button onclick="removeFavoriteChip('${yt}')" class="px-1.5 py-1 text-slate-500 hover:text-red-400 border-l border-slate-800" title="삭제">
+              <i data-lucide="x" class="w-3 h-3"></i>
+            </button>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // ----------------------------------------------------
+    // 탭 전환
+    // ----------------------------------------------------
+    function switchTab(tab) {
+      currentTab = tab;
+      const domBtn = document.getElementById('tab-domestic-btn');
+      const globBtn = document.getElementById('tab-global-btn');
+      const domContainer = document.getElementById('tab-domestic');
+      const globContainer = document.getElementById('tab-global');
+      const domSearchCenter = document.getElementById('domesticSearchCenter');
+
+      if (tab === 'domestic') {
+        domBtn.className = 'tab-btn active-domestic px-4 py-3 text-sm font-bold rounded-t-lg flex items-center gap-2 transition';
+        globBtn.className = 'tab-btn px-4 py-3 text-sm font-bold rounded-t-lg text-slate-400 hover:text-slate-200 flex items-center gap-2 transition';
+        domContainer.classList.remove('hidden');
+        globContainer.classList.add('hidden');
+        domSearchCenter.classList.remove('hidden');
+      } else {
+        globBtn.className = 'tab-btn active-global px-4 py-3 text-sm font-bold rounded-t-lg flex items-center gap-2 transition';
+        domBtn.className = 'tab-btn px-4 py-3 text-sm font-bold rounded-t-lg text-slate-400 hover:text-slate-200 flex items-center gap-2 transition';
+        globContainer.classList.remove('hidden');
+        domContainer.classList.add('hidden');
+        domSearchCenter.classList.add('hidden');
+      }
+
+      renderDashboard();
+    }
+
+    // ----------------------------------------------------
+    // 대시보드 렌더링
+    // ----------------------------------------------------
+    function renderDashboard() {
+      const filteredDom = domesticItems.filter(item => {
+        if (!currentSearchedYouTuber) return true;
+        const q = currentSearchedYouTuber.toLowerCase();
+        return item.channel.toLowerCase().includes(q) || item.title.toLowerCase().includes(q);
+      });
+      renderCardList('tab-domestic', filteredDom, 'domestic');
+      renderCardList('tab-global', globalItems, 'global');
+
+      document.getElementById('statDomesticCount').innerText = domesticItems.length;
+      document.getElementById('statGlobalCount').innerText = globalItems.length;
+      document.getElementById('badgeDomestic').innerText = domesticItems.length;
+      document.getElementById('badgeGlobal').innerText = globalItems.length;
+
+      lucide.createIcons();
+    }
+
+    function renderCardList(containerId, items, category) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const isDomestic = category === 'domestic';
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 px-4 text-center glass-panel rounded-2xl border border-slate-800">
+            <i data-lucide="youtube" class="w-10 h-10 text-red-500 mx-auto mb-2"></i>
+            <h4 class="text-sm font-bold text-white mb-1">
+              '${currentSearchedYouTuber}' 유튜버의 등록된 카드가 없습니다.
+            </h4>
+            <p class="text-xs text-slate-400 mb-3">
+              유튜브 공식 사이트에서 이 유튜버의 최신 영상을 바로 검색하여 시청해보세요!
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(currentSearchedYouTuber + ' AI 에이전트')}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md">
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                <span>유튜브에서 최신 영상 바로보기 ↗</span>
+              </a>
+              <button onclick="resetYouTuberSearch()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs">
+                전체 유튜버 보기
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const tagBadges = item.tags.map(t => 
+          `<span class="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-800/80 text-slate-300 border border-slate-700/60">#${t}</span>`
+        ).join(' ');
+
+        const summaryList = item.summaryPoints.map((point, idx) => 
+          `<li class="flex items-start gap-1.5 text-xs text-slate-300 leading-relaxed">
+            <span class="w-4 h-4 rounded-full ${isDomestic ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-500/20 text-blue-400'} text-[10px] flex items-center justify-center shrink-0 mt-0.5 font-bold">${idx + 1}</span>
+            <span>${point}</span>
+          </li>`
+        ).join('');
+
+        const targetUrl = item.videoUrl || item.searchUrl || '#';
+        const channelUrl = item.channelUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(item.channel)}`;
+
+        return `
+          <article class="glass-panel rounded-2xl p-4 sm:p-5 border ${isDomestic ? 'border-emerald-500/25 hover:border-emerald-500/60' : 'border-blue-500/25 hover:border-blue-500/60'} transition flex flex-col justify-between group shadow-lg">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold ${isDomestic ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'}">
+                    ${isDomestic ? '🇰🇷 국내 실무' : '🌏 해외 트렌드'}
+                  </span>
+                  <a href="${channelUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-white hover:text-red-400 flex items-center gap-1 transition" title="공식 채널">
+                    <i data-lucide="youtube" class="w-3.5 h-3.5 text-red-500"></i>
+                    <span>${item.channel}</span>
+                  </a>
+                </div>
+                <span class="text-[11px] text-slate-400 font-mono">${item.duration || ''}</span>
+              </div>
+
+              <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-emerald-300 transition leading-snug mb-2.5">
+                ${item.title}
+              </h3>
+
+              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 mb-3 space-y-1.5">
+                <ul class="space-y-1">
+                  ${summaryList}
+                </ul>
+              </div>
+
+              <div class="flex flex-wrap gap-1 mb-3">
+                ${tagBadges}
+              </div>
+            </div>
+
+            <div class="pt-2.5 border-t border-slate-800 flex items-center justify-between gap-2">
+              <a href="${targetUrl}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition">
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                <span>YouTube 시청</span>
+              </a>
+
+              <div class="flex items-center gap-1">
+                <button onclick="openDetailModal('${item.id}', '${category}')" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700">
+                  자세히
+                </button>
+                <button onclick="copyBriefingSummary('${item.id}', '${category}')" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700" title="요약 복사">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // ----------------------------------------------------
+    // 카카오톡 브리핑 복사 & 공유 함수
+    // ----------------------------------------------------
+    function shareToKakaoNow() {
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`;
+      
+      let text = `[🚀 데일리 AI 실무 트렌드 브리핑]\n📅 ${dateStr} 아침 브리핑 요약\n\n`;
+      text += `🇰🇷 [국내 실무 트렌드]\n`;
+      domesticItems.slice(0, 3).forEach((item, idx) => {
+        text += `${idx + 1}. ${item.channel}: ${item.title}\n   • ${item.summaryPoints[0]}\n`;
+      });
+      text += `\n🌏 [해외 글로벌 트렌드]\n`;
+      globalItems.slice(0, 2).forEach((item, idx) => {
+        text += `• ${item.channel}: ${item.title}\n`;
+      });
+      text += `\n👉 웹 대시보드에서 전체 보기:\n${window.location.href}`;
+
+      // Web Share API가 지원되는 모바일 브라우저인 경우 카카오톡 앱으로 직접 공유
+      if (navigator.share) {
+        navigator.share({
+          title: '데일리 AI 실무 트렌드 브리핑',
+          text: text,
+          url: window.location.href
+        }).then(() => {
+          showToast('카카오톡 공유창이 열렸습니다!', 'success');
+        }).catch(() => {
+          copyToClipboard(text, '카톡 브리핑 요약이 클립보드에 복사되었습니다! 카톡에 붙여넣으세요.');
+        });
+      } else {
+        copyToClipboard(text, '카톡 브리핑 요약이 복사되었습니다! 카카오톡에 바로 붙여넣으세요.');
+      }
+      closeKakaoGuideModal();
+    }
+
+    function openKakaoGuideModal() {
+      const modal = document.getElementById('kakaoGuideModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      lucide.createIcons();
+    }
+
+    function closeKakaoGuideModal() {
+      const modal = document.getElementById('kakaoGuideModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function openAppInstallGuide() {
+      const modal = document.getElementById('appInstallModal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      lucide.createIcons();
+    }
+
+    function closeAppInstallGuide() {
+      const modal = document.getElementById('appInstallModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // ----------------------------------------------------
+    // 상세 보기 모달
+    // ----------------------------------------------------
+    function openDetailModal(id, category) {
+      const list = category === 'domestic' ? domesticItems : globalItems;
+      const item = list.find(i => i.id === id);
+      if (!item) return;
+
+      const isDomestic = category === 'domestic';
+      const targetUrl = item.videoUrl || item.searchUrl || '#';
+      const modal = document.getElementById('detailModal');
+      const content = document.getElementById('modalContent');
+
+      content.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded text-xs font-bold ${isDomestic ? 'bg-emerald-500/20 text-emerald-300' : 'bg-blue-500/20 text-blue-300'}">
+              ${isDomestic ? '🇰🇷 국내 유튜버 실무' : '🌏 해외 글로벌 트렌드'}
+            </span>
+            <span class="text-xs text-white font-bold">${item.channel}</span>
+          </div>
+
+          <h2 class="text-lg font-bold text-white leading-snug">${item.title}</h2>
+
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">3줄 핵심 요약</h4>
+            <ul class="space-y-1.5">
+              ${item.summaryPoints.map((p, idx) => `
+                <li class="flex items-start gap-2 text-xs text-slate-200">
+                  <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] flex items-center justify-center shrink-0 mt-0.5 font-bold">${idx + 1}</span>
+                  <span>${p}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+            <a href="${targetUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md">
+              <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+              <span>YouTube에서 영상 시청</span>
+            </a>
+            <button onclick="copyBriefingSummary('${item.id}', '${category}')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs">
+              요약 복사
+            </button>
+          </div>
+        </div>
+      `;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      lucide.createIcons();
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // ----------------------------------------------------
+    // 브리핑 직접 등록
+    // ----------------------------------------------------
+    function openAddModal() {
+      document.getElementById('addModal').classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeAddModal() {
+      document.getElementById('addModal').classList.add('opacity-0', 'pointer-events-none');
+      document.getElementById('addBriefingForm').reset();
+    }
+
+    function submitNewBriefing(e) {
+      e.preventDefault();
+      const form = e.target;
+      const category = form.elements['category'].value;
+      const title = document.getElementById('addTitle').value.trim();
+      const channel = document.getElementById('addChannel').value.trim();
+      const tagsStr = document.getElementById('addTags').value.trim();
+      const url = document.getElementById('addUrl').value.trim();
+      const summaryText = document.getElementById('addSummary').value.trim();
+
+      if (!title || !channel || !summaryText) {
+        showToast('필수 항목을 모두 입력해주세요.', 'error');
+        return;
+      }
+
+      const tags = tagsStr ? tagsStr.split(',').map(t => t.trim()).filter(Boolean) : ['에이전트', '실무'];
+      const summaryPoints = summaryText.split('\n').map(p => p.trim()).filter(Boolean);
+
+      const newItem = {
+        id: 'user_' + Date.now(),
+        title,
+        channel,
+        channelUrl: `https://www.youtube.com/results?search_query=${encodeURIComponent(channel)}`,
+        duration: '직접 등록',
+        updatedAt: '방금 전',
+        tags,
+        videoUrl: url,
+        searchUrl: `https://www.youtube.com/results?search_query=${encodeURIComponent(channel)}`,
+        summaryPoints: summaryPoints.length > 0 ? summaryPoints : [summaryText],
+        details: '사용자가 직접 등록한 브리핑입니다.'
+      };
+
+      if (category === 'domestic') {
+        domesticItems.unshift(newItem);
+        if (!favoriteYouTubers.includes(channel)) {
+          favoriteYouTubers.push(channel);
+          saveFavorites();
+          renderFavoriteChips();
+        }
+      } else {
+        globalItems.unshift(newItem);
+      }
+
+      saveData();
+      renderDashboard();
+      closeAddModal();
+      showToast('새 브리핑이 성공적으로 등록되었습니다!', 'success');
+    }
+
+    // ----------------------------------------------------
+    // 프롬프트 및 클립보드 유틸
+    // ----------------------------------------------------
+    function copyToolPrompt(toolKey) {
+      const promptObj = PROMPT_TEMPLATES[toolKey];
+      if (promptObj) copyToClipboard(promptObj.content, `[${promptObj.title}]이 복사되었습니다!`);
+    }
+
+    function copyPrompt(key) {
+      const data = PROMPT_TEMPLATES[key];
+      if (data) copyToClipboard(data.content, `[${data.title}] 프롬프트가 복사되었습니다!`);
+    }
+
+    function copyBriefingSummary(id, category) {
+      const list = category === 'domestic' ? domesticItems : globalItems;
+      const item = list.find(i => i.id === id);
+      if (!item) return;
+
+      const text = `[${item.title}] - ${item.channel}\n` +
+        item.summaryPoints.map((p, i) => `${i + 1}. ${p}`).join('\n') +
+        `\n\n영상 링크: ${item.videoUrl || item.searchUrl}`;
+
+      copyToClipboard(text, '브리핑 요약이 클립보드에 복사되었습니다.');
+    }
+
+    // ----------------------------------------------------
+    // 퀵 노트패드
+    // ----------------------------------------------------
+    function toggleQuickNote() {
+      const panel = document.getElementById('quickNotePanel');
+      const isHidden = panel.classList.contains('pointer-events-none');
+      if (isHidden) {
+        panel.classList.remove('pointer-events-none', 'opacity-0', 'translate-y-6');
+        document.getElementById('quickNoteText').focus();
+      } else {
+        panel.classList.add('pointer-events-none', 'opacity-0', 'translate-y-6');
+      }
+    }
+
+    function loadQuickNote() {
+      const saved = localStorage.getItem(STORAGE_KEY_NOTE) || '';
+      const textarea = document.getElementById('quickNoteText');
+      if (textarea) {
+        textarea.value = saved;
+        updateNoteCharCount(saved.length);
+      }
+    }
+
+    function saveNoteAuto() {
+      const text = document.getElementById('quickNoteText').value;
+      localStorage.setItem(STORAGE_KEY_NOTE, text);
+      updateNoteCharCount(text.length);
+    }
+
+    function updateNoteCharCount(count) {
+      const el = document.getElementById('noteCharCount');
+      if (el) el.innerText = `${count}자 기록됨`;
+    }
+
+    function copyQuickNote() {
+      const text = document.getElementById('quickNoteText').value;
+      if (!text.trim()) return showToast('복사할 내용이 없습니다.', 'info');
+      copyToClipboard(text, '메모가 클립보드에 복사되었습니다.');
+    }
+
+    function clearQuickNote() {
+      if (confirm('메모를 정말 모두 지우시겠습니까?')) {
+        document.getElementById('quickNoteText').value = '';
+        saveNoteAuto();
+        showToast('메모가 초기화되었습니다.', 'info');
+      }
+    }
+
+    function copyToClipboard(text, successMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg, 'success'))
+          .catch(() => fallbackCopyText(text, successMsg));
+      } else {
+        fallbackCopyText(text, successMsg);
+      }
+    }
+
+    function fallbackCopyText(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg, 'success');
+      } catch (err) {
+        showToast('복사에 실패했습니다.', 'error');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      let icon = type === 'error' ? 'alert-triangle' : (type === 'info' ? 'info' : 'check-circle-2');
+      let borderCol = type === 'error' ? 'border-red-500/50' : (type === 'info' ? 'border-cyan-500/50' : 'border-emerald-500/50');
+      let textCol = type === 'error' ? 'text-red-300' : (type === 'info' ? 'text-cyan-300' : 'text-emerald-300');
+
+      toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900/95 backdrop-blur-md border ${borderCol} shadow-xl text-xs text-slate-100 transform transition-all duration-300 translate-x-12 opacity-0 pointer-events-auto`;
+      toast.innerHTML = `<i data-lucide="${icon}" class="w-4 h-4 ${textCol} shrink-0"></i><span>${message}</span>`;
+
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      setTimeout(() => toast.classList.remove('translate-x-12', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('translate-x-12', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // 모달 배경 닫기
+    window.addEventListener('click', (e) => {
+      const detailModal = document.getElementById('detailModal');
+      const addModal = document.getElementById('addModal');
+      const kakaoModal = document.getElementById('kakaoGuideModal');
+      const installModal = document.getElementById('appInstallModal');
+
+      if (e.target === detailModal) closeDetailModal();
+      if (e.target === addModal) closeAddModal();
+      if (e.target === kakaoModal) closeKakaoGuideModal();
+      if (e.target === installModal) closeAppInstallGuide();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDetailModal();
+        closeAddModal();
+        closeKakaoGuideModal();
+        closeAppInstallGuide();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>

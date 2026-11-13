@@ -1,22 +1,27 @@
 name: 매일 아침 8시 카카오톡 AI 브리핑 발송
+
 on:
   schedule:
     # UTC 23:00 = 한국 시간(KST) 매일 아침 08:00
     - cron: '0 23 * * *'
   workflow_dispatch:
+
 jobs:
   send-briefing:
     runs-on: ubuntu-latest
     steps:
       - name: 코드 체크아웃
         uses: actions/checkout@v4
+
       - name: 파이썬 설정
-        uses: setup-python@v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
       - name: 라이브러리 설치
         run: |
           pip install requests
+
       - name: 카카오톡 브리핑 발송
         env:
           KAKAO_REST_API_KEY: ${{ secrets.KAKAO_REST_API_KEY }}

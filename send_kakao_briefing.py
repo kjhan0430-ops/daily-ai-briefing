@@ -23,11 +23,14 @@ def get_current_date_str():
 
 def load_tokens():
     if os.path.exists(KAKAO_TOKEN_FILE):
-        with open(KAKAO_TOKEN_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    access_token = os.environ.get("KAKAO_ACCESS_TOKEN", "")
+        try:
+            with open(KAKAO_TOKEN_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
     refresh_token = os.environ.get("KAKAO_REFRESH_TOKEN", "")
-    if access_token:
+    access_token = os.environ.get("KAKAO_ACCESS_TOKEN", "")
+    if refresh_token:
         return {"access_token": access_token, "refresh_token": refresh_token}
     return None
 
@@ -49,9 +52,14 @@ def refresh_kakao_token(tokens):
         tokens["access_token"] = result["access_token"]
         if "refresh_token" in result:
             tokens["refresh_token"] = result["refresh_token"]
-        with open(KAKAO_TOKEN_FILE, "w", encoding="utf-8") as f:
-            json.dump(tokens, f, ensure_ascii=False, indent=2)
-        print(">> 카카오 액세스 토큰 자동 갱신 완료")
+        try:
+            with open(KAKAO_TOKEN_FILE, "w", encoding="utf-8") as f:
+                json.dump(tokens, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+        print(">> 카카오 액세스 토큰 자동 갱신 성공!")
+    else:
+        print(">> 토큰 갱신 응답 오류:", result)
     return tokens
 
 def generate_briefing_message():
@@ -77,9 +85,7 @@ def generate_briefing_message():
 
 ⚡ [오늘의 실전 프롬프트]
 "시니어 관점 코드 리팩토링 & 보안 점검 프롬프트 탑재"
-
-👉 폰에서 AI 대시보드 바로 열기:
-https://daily-ai-briefing.netlify.app"""
+"""
     return text
 
 def send_kakao_memo(access_token, message_text):
@@ -113,16 +119,22 @@ def main():
     print(f">> 카카오톡 데일리 AI 브리핑 발송 시작 ({datetime.datetime.now()})")
     tokens = load_tokens()
     
-    if not tokens or not tokens.get("access_token"):
+    if not tokens or not tokens.get("refresh_token"):
         print("⚠️ 카카오 토큰 정보가 없습니다.")
-        return
+        exit(1)
 
-    # 토큰 갱신 시도 (만료 방지)
+    # 리프레시 토큰으로 최신 액세스 토큰 갱신 발급
     tokens = refresh_kakao_token(tokens)
     
+    if not tokens.get("access_token"):
+        print("❌ 유효한 액세스 토큰을 얻지 못했습니다.")
+        exit(1)
+
     # 메시지 생성 및 전송
     msg = generate_briefing_message()
-    send_kakao_memo(tokens["access_token"], msg)
+    success = send_kakao_memo(tokens["access_token"], msg)
+    if not success:
+        exit(1)
 
 if __name__ == "__main__":
     main()

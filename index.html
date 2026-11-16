@@ -658,21 +658,55 @@
     // PWA Service Worker 등록 및 즉시 업데이트 체크
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
+        navigator.serviceWorker.register('./sw.js?v=4')
           .then(reg => {
             reg.update();
             console.log('PWA ServiceWorker 등록 및 최신 체크 완료:', reg.scope);
           })
           .catch(err => console.log('ServiceWorker 등록 실패:', err));
       });
+
+      // 새 서비스 워커가 활성화되면 즉시 화면 자동 새로고침
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
     }
+
+    // 스마트폰 홈 화면 앱을 다시 켤 때마다(백그라운드 -> 포그라운드) 최신 날짜 데이터 자동 동기화
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        syncLatestBriefingData(false);
+      }
+    });
+    window.addEventListener('focus', () => {
+      syncLatestBriefingData(false);
+    });
 
     // ----------------------------------------------------
     // 기본 내장 브리핑 데이터 (briefing_data.json 로드 전/오프라인용 최신 스냅샷)
     // ----------------------------------------------------
-    let currentBriefingDate = '2026년 11월 15일 (일)';
-    let currentBriefingDateShort = '2026.11.15';
-    let currentGeneratedAt = '2026-11-15 08:00 KST';
+    // 오늘 실시간 날짜 기본값 자동 계산 (오프라인/로드 전에도 항상 오늘 날짜 표시)
+    function getTodayDateDefaults() {
+      const now = new Date();
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      const dayStr = days[now.getDay()];
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return {
+        full: `${y}년 ${m}월 ${d}일 (${dayStr})`,
+        short: `${y}.${m}.${d}`,
+        genAt: `${y}-${m}-${d} 08:00 KST`
+      };
+    }
+    const _todayDef = getTodayDateDefaults();
+    let currentBriefingDate = _todayDef.full;
+    let currentBriefingDateShort = _todayDef.short;
+    let currentGeneratedAt = _todayDef.genAt;
 
     const OFFICIAL_DOMESTIC_ITEMS = [
       {

@@ -369,11 +369,56 @@ def send_kakao_memo(access_token, message_text, short_date):
 
     resp = requests.post(url, headers=headers, data=payload, timeout=10)
     if resp.status_code == 200 and resp.json().get("result_code") == 0:
-        print(f"✅ [{get_now_kst()}] 카카오톡 메시지 전송 성공!")
+        print(f"✅ [{get_now_kst()}] 본인 카카오톡 메시지 전송 성공!")
         return True
     else:
-        print(f"❌ 전송 실패: {resp.status_code} - {resp.text}")
+        print(f"❌ 본인 전송 실패: {resp.status_code} - {resp.text}")
         return False
+
+
+def send_kakao_friends(access_token, message_text, short_date):
+    """동의한 친구 목록을 조회하여 등록된 모든 친구들에게 브리핑 메시지 자동 발송"""
+    friends_url = "https://kapi.kakao.com/v1/api/talk/friends"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    try:
+        f_resp = requests.get(friends_url, headers=headers, timeout=10)
+        if f_resp.status_code == 200:
+            f_data = f_resp.json()
+            elements = f_data.get("elements", [])
+            uuids = [f["uuid"] for f in elements if f.get("allowed_msg")]
+            if not uuids:
+                print(">> 메시지 수신 동의된 친구가 없습니다.")
+                return True
+
+            friend_names = [f.get("profile_nickname", "친구") for f in elements]
+            print(f">> 등록된 친구 ({', '.join(friend_names)} 등 총 {len(uuids)}명)에게 브리핑 발송 시작...")
+
+            app_url = f"https://kjhan0430-ops.github.io/daily-ai-briefing/?date={short_date}"
+            send_url = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
+            payload = {
+                "receiver_uuids": json.dumps(uuids),
+                "template_object": json.dumps(
+                    {
+                        "object_type": "text",
+                        "text": message_text,
+                        "link": {"web_url": app_url, "mobile_web_url": app_url},
+                        "button_title": f"{short_date} AI 대시보드 열기",
+                    },
+                    ensure_ascii=False,
+                ),
+            }
+            s_resp = requests.post(send_url, headers=headers, data=payload, timeout=10)
+            if s_resp.status_code == 200:
+                print(f"✅ [{get_now_kst()}] 친구 {len(uuids)}명에게 카카오톡 브리핑 전송 성공!")
+                return True
+            else:
+                print(f"❌ 친구 전송 오류: {s_resp.status_code} - {s_resp.text}")
+    except Exception as e:
+        print(f">> 친구 발송 중 예외 발생: {e}")
+    return False
 
 
 def wait_until_8am_kst():
@@ -425,6 +470,8 @@ def main():
     msg = generate_briefing_message(briefing_data)
     short_date = briefing_data.get("briefingDateShort", get_current_date_info()["short_str"])
     success = send_kakao_memo(tokens["access_token"], msg, short_date)
+    # 등록된 친구들에게도 동시 발송
+    send_kakao_friends(tokens["access_token"], msg, short_date)
     if not success:
         sys.exit(1)
 

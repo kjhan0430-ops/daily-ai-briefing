@@ -1,20 +1,43 @@
 {
-  "briefingDate": "2026년 11월 16일 (월)",
-  "briefingDateShort": "2026.11.16",
-  "generatedAt": "2026-11-16 09:16 KST",
+  "briefingDate": "2026년 11월 17일 (화)",
+  "briefingDateShort": "2026.11.17",
+  "generatedAt": "2026-11-17 08:37 KST",
   "domesticCount": 8,
   "globalCount": 6,
   "domesticItems": [
     {
-      "id": "dom_20261116_1",
+      "id": "dom_20261117_1",
+      "title": "AI 에이전트 회사, 3시간 만에 만들고 광고까지 뽑아본 솔직한 결론",
+      "originalTitle": "AI 에이전트 회사, 3시간 만에 만들고 광고까지 뽑아본 솔직한 결론",
+      "channel": "생존AI",
+      "channelUrl": "https://www.youtube.com/results?search_query=%EC%83%9D%EC%A1%B4AI",
+      "duration": "약 30:34",
+      "publishedAt": "6일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 6일 전",
+      "tags": [
+        "AI에이전트",
+        "업무자동화",
+        "실무"
+      ],
+      "videoUrl": "https://www.youtube.com/watch?v=vJwMLISHBOE",
+      "summaryPoints": [
+        "'생존AI' 채널에서 업로드한 최신 AI 실무·트렌드 분석 영상",
+        "핵심 요약: 영상제작도구 힉스필드연결 : https://higgsfield.ai/s/higgsfield-general-campaign-yt-survivalai2025-BRAsUy AI 에이전트로 영상 ...",
+        "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
+      ],
+      "details": "[2026.11.17 자 브리핑 수집] 생존AI 채널의 'AI 에이전트 회사, 3시간 만에 만들고 광고까지 뽑아본 솔직한 결론' 영상입니다. (유튜브 업로드: 6일 전)"
+    },
+    {
+      "id": "dom_20261117_2",
       "title": "코딩없이 클로드로 AI 에이전트 직원 만들기 (쓸수록 똑똑해짐)",
       "originalTitle": "코딩없이 클로드로 AI 에이전트 직원 만들기 (쓸수록 똑똑해짐)",
       "channel": "그린코끼리 AI",
       "channelUrl": "https://www.youtube.com/results?search_query=%EA%B7%B8%EB%A6%B0%EC%BD%94%EB%81%BC%EB%A6%AC%20AI",
       "duration": "약 10:53",
-      "publishedAt": "5일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 5일 전",
+      "publishedAt": "6일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 6일 전",
       "tags": [
         "AI에이전트",
         "업무자동화",
@@ -26,18 +49,18 @@
         "핵심 요약: 이 영상에서는 코딩 없이, 클로드에게 말로만 피드백을 받을수록 똑똑해지는 나만의 AI 직원을 만듭니다. 내 일을 알려 주고, 일하는 ...",
         "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] 그린코끼리 AI 채널의 '코딩없이 클로드로 AI 에이전트 직원 만들기 (쓸수록 똑똑해짐)' 영상입니다. (유튜브 업로드: 5일 전)"
+      "details": "[2026.11.17 자 브리핑 수집] 그린코끼리 AI 채널의 '코딩없이 클로드로 AI 에이전트 직원 만들기 (쓸수록 똑똑해짐)' 영상입니다. (유튜브 업로드: 6일 전)"
     },
     {
-      "id": "dom_20261116_2",
-      "title": "예시를 통해 쉽게 배우는 AI 에이전트 하네스 엔지니어링",
-      "originalTitle": "예시를 통해 쉽게 배우는 AI 에이전트 하네스 엔지니어링",
+      "id": "dom_20261117_3",
+      "title": "내 AI 에이전트를 더 똑똑하게 만드는 방법",
+      "originalTitle": "내 AI 에이전트를 더 똑똑하게 만드는 방법",
       "channel": "일잘러 장피엠",
       "channelUrl": "https://www.youtube.com/results?search_query=%EC%9D%BC%EC%9E%98%EB%9F%AC%20%EC%9E%A5%ED%94%BC%EC%97%A0",
       "duration": "약 12:44",
-      "publishedAt": "4일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 4일 전",
+      "publishedAt": "5일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 5일 전",
       "tags": [
         "AI에이전트",
         "업무자동화",
@@ -49,64 +72,18 @@
         "핵심 요약: 같은 사진, 같은 그림판으로 다섯 번 그리면서 AI 에이전트를 잘 쓰는 방법을 단계별로 보여드립니다. ① 아무 설정 없이 → ② 목표와 ...",
         "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] 일잘러 장피엠 채널의 '예시를 통해 쉽게 배우는 AI 에이전트 하네스 엔지니어링' 영상입니다. (유튜브 업로드: 4일 전)"
+      "details": "[2026.11.17 자 브리핑 수집] 일잘러 장피엠 채널의 '내 AI 에이전트를 더 똑똑하게 만드는 방법' 영상입니다. (유튜브 업로드: 5일 전)"
     },
     {
-      "id": "dom_20261116_3",
-      "title": "How to Build Your First AI Agent in Claude Code (It Runs Your Week)",
-      "originalTitle": "How to Build Your First AI Agent in Claude Code (It Runs Your Week)",
-      "channel": "Teacher's Tech",
-      "channelUrl": "https://www.youtube.com/results?search_query=Teacher%27s%20Tech",
-      "duration": "약 19:23",
-      "publishedAt": "4일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 4일 전",
-      "tags": [
-        "AI에이전트",
-        "업무자동화",
-        "실무"
-      ],
-      "videoUrl": "https://www.youtube.com/watch?v=p_8qG98AtgY",
-      "summaryPoints": [
-        "'Teacher's Tech' 채널에서 업로드한 최신 AI 실무·트렌드 분석 영상",
-        "핵심 요약: Build your first AI agent in Claude Code with no coding, using a real small business as the example. You will set u...",
-        "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
-      ],
-      "details": "[2026.11.16 자 브리핑 수집] Teacher's Tech 채널의 'How to Build Your First AI Agent in Claude Code (It Runs Your Week)' 영상입니다. (유튜브 업로드: 4일 전)"
-    },
-    {
-      "id": "dom_20261116_4",
-      "title": "클로드 대규모 업데이트! 꼭 알아야 할 클로드 코드 사용법 총정리",
-      "originalTitle": "클로드 대규모 업데이트! 꼭 알아야 할 클로드 코드 사용법 총정리",
-      "channel": "홍아린 AI",
-      "channelUrl": "https://www.youtube.com/results?search_query=%ED%99%8D%EC%95%84%EB%A6%B0%20AI",
-      "duration": "약 11:59",
-      "publishedAt": "4일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 4일 전",
-      "tags": [
-        "클로드코드",
-        "AI코딩",
-        "실무"
-      ],
-      "videoUrl": "https://www.youtube.com/watch?v=mP2mWReIzck",
-      "summaryPoints": [
-        "'홍아린 AI' 채널에서 업로드한 최신 AI 실무·트렌드 분석 영상",
-        "핵심 요약: 노트북을 덮었는데 일이 끝나 있었습니다. 폰으로 한 마디 보냈더니 컴퓨터 속 클로드가 파일까지 고쳐 놨어요. 요즘 너무 달라져서 ...",
-        "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
-      ],
-      "details": "[2026.11.16 자 브리핑 수집] 홍아린 AI 채널의 '클로드 대규모 업데이트! 꼭 알아야 할 클로드 코드 사용법 총정리' 영상입니다. (유튜브 업로드: 4일 전)"
-    },
-    {
-      "id": "dom_20261116_5",
+      "id": "dom_20261117_4",
       "title": "클로드로 인생을 바꾸는 31가지 방법 | 진짜 고수들의 클로드 활용방법 공개 #클로드코드 #ai",
       "originalTitle": "클로드로 인생을 바꾸는 31가지 방법 | 진짜 고수들의 클로드 활용방법 공개 #클로드코드 #ai",
       "channel": "문외인 Layperson",
       "channelUrl": "https://www.youtube.com/results?search_query=%EB%AC%B8%EC%99%B8%EC%9D%B8%20Layperson",
       "duration": "약 12:36",
-      "publishedAt": "9시간 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 9시간 전",
+      "publishedAt": "1일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 1일 전",
       "tags": [
         "클로드코드",
         "AI코딩",
@@ -118,18 +95,41 @@
         "핵심 요약: AI 바이브코딩 정보 공유방 https://open.kakao.com/o/g6L647Ki 아이언맨의 자비스 같은 똑똑한 인공지능을 두고, 고작 메일 오타나 ...",
         "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] 문외인 Layperson 채널의 '클로드로 인생을 바꾸는 31가지 방법 | 진짜 고수들의 클로드 활용방법 공개 #클로드코드 #ai' 영상입니다. (유튜브 업로드: 9시간 전)"
+      "details": "[2026.11.17 자 브리핑 수집] 문외인 Layperson 채널의 '클로드로 인생을 바꾸는 31가지 방법 | 진짜 고수들의 클로드 활용방법 공개 #클로드코드 #ai' 영상입니다. (유튜브 업로드: 1일 전)"
     },
     {
-      "id": "dom_20261116_6",
+      "id": "dom_20261117_5",
+      "title": "클로드 대규모 업데이트! 꼭 알아야 할 클로드 코드 사용법 총정리",
+      "originalTitle": "클로드 대규모 업데이트! 꼭 알아야 할 클로드 코드 사용법 총정리",
+      "channel": "홍아린 AI",
+      "channelUrl": "https://www.youtube.com/results?search_query=%ED%99%8D%EC%95%84%EB%A6%B0%20AI",
+      "duration": "약 11:59",
+      "publishedAt": "5일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 5일 전",
+      "tags": [
+        "클로드코드",
+        "AI코딩",
+        "실무"
+      ],
+      "videoUrl": "https://www.youtube.com/watch?v=mP2mWReIzck",
+      "summaryPoints": [
+        "'홍아린 AI' 채널에서 업로드한 최신 AI 실무·트렌드 분석 영상",
+        "핵심 요약: 노트북을 덮었는데 일이 끝나 있었습니다. 폰으로 한 마디 보냈더니 컴퓨터 속 클로드가 파일까지 고쳐 놨어요. 요즘 너무 달라져서 ...",
+        "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
+      ],
+      "details": "[2026.11.17 자 브리핑 수집] 홍아린 AI 채널의 '클로드 대규모 업데이트! 꼭 알아야 할 클로드 코드 사용법 총정리' 영상입니다. (유튜브 업로드: 5일 전)"
+    },
+    {
+      "id": "dom_20261117_6",
       "title": "AI 자동화, 클로드코드 왕초보 사용법 (10분 완성)",
       "originalTitle": "AI 자동화, 클로드코드 왕초보 사용법 (10분 완성)",
       "channel": "엄필승, 셀러들의 길잡이",
       "channelUrl": "https://www.youtube.com/results?search_query=%EC%97%84%ED%95%84%EC%8A%B9%2C%20%EC%85%80%EB%9F%AC%EB%93%A4%EC%9D%98%20%EA%B8%B8%EC%9E%A1%EC%9D%B4",
       "duration": "약 23:39",
-      "publishedAt": "3일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 3일 전",
+      "publishedAt": "4일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 4일 전",
       "tags": [
         "클로드코드",
         "AI코딩",
@@ -141,18 +141,18 @@
         "핵심 요약: [타임라인] ▽ 00:00 많이 받은 질문 3개 00:25 왜 지금 클로드 코드인가 01:05 제가 클로드 코드에 시키는 6가지 일 01:49 빈 주방 비유 ...",
         "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] 엄필승, 셀러들의 길잡이 채널의 'AI 자동화, 클로드코드 왕초보 사용법 (10분 완성)' 영상입니다. (유튜브 업로드: 3일 전)"
+      "details": "[2026.11.17 자 브리핑 수집] 엄필승, 셀러들의 길잡이 채널의 'AI 자동화, 클로드코드 왕초보 사용법 (10분 완성)' 영상입니다. (유튜브 업로드: 4일 전)"
     },
     {
-      "id": "dom_20261116_7",
-      "title": "구글 제미나이 인공지능을 효율적으로 활용하는 방법",
-      "originalTitle": "구글 제미나이 인공지능을 효율적으로 활용하는 방법",
+      "id": "dom_20261117_7",
+      "title": "스마트폰 구글문서와 구글시트 제미나이 연동 활용",
+      "originalTitle": "스마트폰 구글문서와 구글시트 제미나이 연동 활용",
       "channel": "컴튜브 강좌쇼핑몰",
       "channelUrl": "https://www.youtube.com/results?search_query=%EC%BB%B4%ED%8A%9C%EB%B8%8C%20%EA%B0%95%EC%A2%8C%EC%87%BC%ED%95%91%EB%AA%B0",
       "duration": "약 20:51",
-      "publishedAt": "6일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 6일 전",
+      "publishedAt": "7일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 7일 전",
       "tags": [
         "제미나이",
         "구글AI",
@@ -164,18 +164,18 @@
         "핵심 요약: 스마트폰 구글 문서와 제미나이를 활용한 놀라운 기능 활용! 구글문서와 제미나이를 연동한 놀라운 문서작성 방법을 알아봅니다.",
         "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] 컴튜브 강좌쇼핑몰 채널의 '구글 제미나이 인공지능을 효율적으로 활용하는 방법' 영상입니다. (유튜브 업로드: 6일 전)"
+      "details": "[2026.11.17 자 브리핑 수집] 컴튜브 강좌쇼핑몰 채널의 '스마트폰 구글문서와 구글시트 제미나이 연동 활용' 영상입니다. (유튜브 업로드: 7일 전)"
     },
     {
-      "id": "dom_20261116_8",
+      "id": "dom_20261117_8",
       "title": "매일 야근하던 내가 칼퇴하게 된 이유, 제미나이 신기능 활용법 10가지 (무료 전자책 제공)",
       "originalTitle": "매일 야근하던 내가 칼퇴하게 된 이유, 제미나이 신기능 활용법 10가지 (무료 전자책 제공)",
       "channel": "보스턴빌더 | AI 시대 생존기",
       "channelUrl": "https://www.youtube.com/results?search_query=%EB%B3%B4%EC%8A%A4%ED%84%B4%EB%B9%8C%EB%8D%94%20%7C%20AI%20%EC%8B%9C%EB%8C%80%20%EC%83%9D%EC%A1%B4%EA%B8%B0",
       "duration": "약 24:30",
-      "publishedAt": "4일 전",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 4일 전",
+      "publishedAt": "5일 전",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 5일 전",
       "tags": [
         "제미나이",
         "구글AI",
@@ -184,92 +184,92 @@
       "videoUrl": "https://www.youtube.com/watch?v=jgESUfN0SrY",
       "summaryPoints": [
         "'보스턴빌더 | AI 시대 생존기' 채널에서 업로드한 최신 AI 실무·트렌드 분석 영상",
-        "핵심 요약: 바이브코딩 하다 막힌 것, 만든 것 같이 나누실 분은 바코사 카페로 오세요! https://bacosa.kr/b1028 1대1 오프라인 강의 신청 ...",
+        "핵심 요약: 바이브코딩 하다 막힌 것, 만든 것 같이 나누실 분은 바코사 카페로 오세요! https://bacosa.kr/b1111-2 1대1 오프라인 강의 신청 ...",
         "실무 적용: 영상 본문과 고정 댓글의 프롬프트·템플릿 링크를 확인하여 업무 자동화에 즉시 테스트해 보세요."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] 보스턴빌더 | AI 시대 생존기 채널의 '매일 야근하던 내가 칼퇴하게 된 이유, 제미나이 신기능 활용법 10가지 (무료 전자책 제공)' 영상입니다. (유튜브 업로드: 4일 전)"
+      "details": "[2026.11.17 자 브리핑 수집] 보스턴빌더 | AI 시대 생존기 채널의 '매일 야근하던 내가 칼퇴하게 된 이유, 제미나이 신기능 활용법 10가지 (무료 전자책 제공)' 영상입니다. (유튜브 업로드: 5일 전)"
     }
   ],
   "globalItems": [
     {
-      "id": "glob_20261116_1",
-      "title": "Turn Local LLM into AI Agent with Python",
-      "originalTitle": "Turn Local LLM into AI Agent with Python",
-      "channel": "Python Simplified",
-      "channelUrl": "https://www.youtube.com/results?search_query=Python%20Simplified",
-      "duration": "약 19:05",
-      "publishedAt": "5d ago",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 5d ago",
+      "id": "glob_20261117_1",
+      "title": "n8n 튜토리얼: AI 에이전트 및 메모리를 갖춘 두 번째 두뇌",
+      "originalTitle": "n8n Tutorial: Second Brain With AI Agents & Memory",
+      "channel": "NeuralNine",
+      "channelUrl": "https://www.youtube.com/results?search_query=NeuralNine",
+      "duration": "약 1:00:49",
+      "publishedAt": "6h ago",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 6h ago",
       "tags": [
         "AI에이전트",
         "글로벌",
         "워크플로"
       ],
-      "videoUrl": "https://www.youtube.com/watch?v=rYElE9GZudA",
+      "videoUrl": "https://www.youtube.com/watch?v=4lEVI0E5XHw",
       "summaryPoints": [
-        "글로벌 채널 'Python Simplified'의 최신 AI 트렌드 영상 (원제: Turn Local LLM into AI Agent with Python)",
-        "핵심 내용: WHAT YOU'LL LEARN - How to build a local AI agent using Python - How to combine Qwen, and Flux in an AI workfl...",
+        "글로벌 채널 'NeuralNine'의 최신 AI 트렌드 영상 (원제: n8n Tutorial: Second Brain With AI Agents & Memory)",
+        "핵심 내용: n8n을 확인하세요: https://plug.dev.plug.dev/XXwAjQF 워크플로: ...",
         "실무 팁: 유튜브 자막 자동번역(한국어) 기능을 켜고 시청하시면 핵심 프롬프트와 화면 구성을 바로 적용할 수 있습니다."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] Python Simplified 채널의 'Turn Local LLM into AI Agent with Python' 영상입니다. (유튜브 업로드: 5d ago)"
+      "details": "[2026.11.17 자 브리핑 수집] NeuralNine 채널의 'n8n 튜토리얼: AI 에이전트 및 메모리를 갖춘 두 번째 두뇌' 영상입니다. (유튜브 업로드: 6h ago)"
     },
     {
-      "id": "glob_20261116_2",
-      "title": "How Complete Beginners Master 95% of AI Agents in 26 minutes",
-      "originalTitle": "How Complete Beginners Master 95% of AI Agents in 26 minutes",
-      "channel": "Jake One Page",
-      "channelUrl": "https://www.youtube.com/results?search_query=Jake%20One%20Page",
-      "duration": "약 26:02",
-      "publishedAt": "5d ago",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 5d ago",
+      "id": "glob_20261117_2",
+      "title": "수석 엔지니어가 실제로 AI 에이전트에 위임하는 방법",
+      "originalTitle": "How Senior Engineers Actually Delegate to AI Agents",
+      "channel": "Ankita Kulkarni",
+      "channelUrl": "https://www.youtube.com/results?search_query=Ankita%20Kulkarni",
+      "duration": "약 14:32",
+      "publishedAt": "12h ago",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 12h ago",
       "tags": [
         "AI에이전트",
         "글로벌",
         "워크플로"
       ],
-      "videoUrl": "https://www.youtube.com/watch?v=2hzb21O2seg",
+      "videoUrl": "https://www.youtube.com/watch?v=yd9FyANPi3s",
       "summaryPoints": [
-        "글로벌 채널 'Jake One Page'의 최신 AI 트렌드 영상 (원제: How Complete Beginners Master 95% of AI Agents in 26 minutes)",
-        "핵심 내용: This beginner-friendly AI agent tutorial walks you through what an AI agent is, how AI agents work, and how th...",
+        "글로벌 채널 'Ankita Kulkarni'의 최신 AI 트렌드 영상 (원제: How Senior Engineers Actually Delegate to AI Agents)",
+        "핵심 내용: 선임 엔지니어로서 AI 에이전트에 위임하는 데 사용하는 정확한 워크플로: 상세한 개요, 시각적 정보, 에이전트가 나를 그릴 수 있게 하는 것 등...",
         "실무 팁: 유튜브 자막 자동번역(한국어) 기능을 켜고 시청하시면 핵심 프롬프트와 화면 구성을 바로 적용할 수 있습니다."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] Jake One Page 채널의 'How Complete Beginners Master 95% of AI Agents in 26 minutes' 영상입니다. (유튜브 업로드: 5d ago)"
+      "details": "[2026.11.17 자 브리핑 수집] Ankita Kulkarni 채널의 '수석 엔지니어가 실제로 AI 에이전트에 위임하는 방법' 영상입니다. (유튜브 업로드: 12h ago)"
     },
     {
-      "id": "glob_20261116_3",
-      "title": "Codex & AI Coding Agents - Learn Agentic Coding",
-      "originalTitle": "Codex & AI Coding Agents - Learn Agentic Coding",
-      "channel": "freeCodeCamp.org",
-      "channelUrl": "https://www.youtube.com/results?search_query=freeCodeCamp.org",
-      "duration": "약 1:50:44",
-      "publishedAt": "5d ago",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 5d ago",
+      "id": "glob_20261117_3",
+      "title": "내 전체 AI 에이전트 설정(Claude Code + Dev Containers)",
+      "originalTitle": "My Entire AI Agent Setup (Claude Code + Dev Containers)",
+      "channel": "Mischa van den Burg",
+      "channelUrl": "https://www.youtube.com/results?search_query=Mischa%20van%20den%20Burg",
+      "duration": "약 19:09",
+      "publishedAt": "6d ago",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 6d ago",
       "tags": [
         "AI에이전트",
         "글로벌",
         "워크플로"
       ],
-      "videoUrl": "https://www.youtube.com/watch?v=ajfQWhGQGLE",
+      "videoUrl": "https://www.youtube.com/watch?v=0hUko6Fj9kc",
       "summaryPoints": [
-        "글로벌 채널 'freeCodeCamp.org'의 최신 AI 트렌드 영상 (원제: Codex & AI Coding Agents - Learn Agentic Coding)",
-        "핵심 내용: Learn agentic coding with AI coding agents such as Codex: prompting, plan mode, skills, testing, Git, secrets,...",
+        "글로벌 채널 'Mischa van den Burg'의 최신 AI 트렌드 영상 (원제: My Entire AI Agent Setup (Claude Code + Dev Containers))",
+        "핵심 내용: KubeCraft 가입을 신청하고 DevOps 채용을 시작하세요: https://kubecraft.click/cgv177 무료 DevOps 경력 로드맵을 다운로드하세요...",
         "실무 팁: 유튜브 자막 자동번역(한국어) 기능을 켜고 시청하시면 핵심 프롬프트와 화면 구성을 바로 적용할 수 있습니다."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] freeCodeCamp.org 채널의 'Codex & AI Coding Agents - Learn Agentic Coding' 영상입니다. (유튜브 업로드: 5d ago)"
+      "details": "[2026.11.17 자 브리핑 수집] Mischa van den Burg 채널의 '내 전체 AI 에이전트 설정(Claude Code + Dev Containers)' 영상입니다. (유튜브 업로드: 6d ago)"
     },
     {
-      "id": "glob_20261116_4",
-      "title": "The Best Way to Run Claude Code in 2026",
+      "id": "glob_20261117_4",
+      "title": "2026년 Claude Code를 실행하는 가장 좋은 방법",
       "originalTitle": "The Best Way to Run Claude Code in 2026",
       "channel": "Rob Shocks - Switch Dimension",
       "channelUrl": "https://www.youtube.com/results?search_query=Rob%20Shocks%20-%20Switch%20Dimension",
       "duration": "약 10:25",
-      "publishedAt": "1d ago",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 1d ago",
+      "publishedAt": "2d ago",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 2d ago",
       "tags": [
         "클로드코드",
         "앤트로픽",
@@ -278,44 +278,44 @@
       "videoUrl": "https://www.youtube.com/watch?v=73DrNNvEKH0",
       "summaryPoints": [
         "글로벌 채널 'Rob Shocks - Switch Dimension'의 최신 AI 트렌드 영상 (원제: The Best Way to Run Claude Code in 2026)",
-        "핵심 내용: I have been searching for the perfect agentic development environment and Orca is the closest match I have fou...",
+        "핵심 내용: 저는 완벽한 에이전트 개발 환경을 찾고 있었는데 Orca가 제가 지금까지 찾은 것 중 가장 일치하는 환경입니다.",
         "실무 팁: 유튜브 자막 자동번역(한국어) 기능을 켜고 시청하시면 핵심 프롬프트와 화면 구성을 바로 적용할 수 있습니다."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] Rob Shocks - Switch Dimension 채널의 'The Best Way to Run Claude Code in 2026' 영상입니다. (유튜브 업로드: 1d ago)"
+      "details": "[2026.11.17 자 브리핑 수집] Rob Shocks - Switch Dimension 채널의 '2026년 Claude Code를 실행하는 가장 좋은 방법' 영상입니다. (유튜브 업로드: 2d ago)"
     },
     {
-      "id": "glob_20261116_5",
-      "title": "Run Claude Code Agentic OS! Here's How! 😱",
-      "originalTitle": "Run Claude Code Agentic OS! Here's How! 😱",
-      "channel": "Julian Goldie SEO",
-      "channelUrl": "https://www.youtube.com/results?search_query=Julian%20Goldie%20SEO",
-      "duration": "약 7:55",
-      "publishedAt": "2d ago",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 2d ago",
+      "id": "glob_20261117_5",
+      "title": "Codex 및 AI 코딩 에이전트 - 에이전트 코딩 배우기",
+      "originalTitle": "Codex & AI Coding Agents - Learn Agentic Coding",
+      "channel": "freeCodeCamp.org",
+      "channelUrl": "https://www.youtube.com/results?search_query=freeCodeCamp.org",
+      "duration": "약 1:50:44",
+      "publishedAt": "6d ago",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 6d ago",
       "tags": [
         "클로드코드",
         "앤트로픽",
         "에이전트"
       ],
-      "videoUrl": "https://www.youtube.com/watch?v=kQHHF0L1wuw",
+      "videoUrl": "https://www.youtube.com/watch?v=ajfQWhGQGLE",
       "summaryPoints": [
-        "글로벌 채널 'Julian Goldie SEO'의 최신 AI 트렌드 영상 (원제: Run Claude Code Agentic OS! Here's How! 😱)",
-        "핵심 내용: Want to make money and save time with AI? Join here: https://www.skool.com/ai-profit-lab-7462/about Video note...",
+        "글로벌 채널 'freeCodeCamp.org'의 최신 AI 트렌드 영상 (원제: Codex & AI Coding Agents - Learn Agentic Coding)",
+        "핵심 내용: 프롬프트, 계획 모드, 기술, 테스트, Git, 비밀, 권한 등 Codex와 같은 AI 코딩 에이전트를 사용하여 에이전트 코딩을 알아보세요.",
         "실무 팁: 유튜브 자막 자동번역(한국어) 기능을 켜고 시청하시면 핵심 프롬프트와 화면 구성을 바로 적용할 수 있습니다."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] Julian Goldie SEO 채널의 'Run Claude Code Agentic OS! Here's How! 😱' 영상입니다. (유튜브 업로드: 2d ago)"
+      "details": "[2026.11.17 자 브리핑 수집] freeCodeCamp.org 채널의 'Codex 및 AI 코딩 에이전트 - 에이전트 코딩 배우기' 영상입니다. (유튜브 업로드: 6d ago)"
     },
     {
-      "id": "glob_20261116_6",
-      "title": "Build a Better Software Factory with Claude Code",
+      "id": "glob_20261117_6",
+      "title": "Claude Code로 더 나은 소프트웨어 공장 구축",
       "originalTitle": "Build a Better Software Factory with Claude Code",
       "channel": "ZazenCodes",
       "channelUrl": "https://www.youtube.com/results?search_query=ZazenCodes",
       "duration": "약 32:22",
-      "publishedAt": "6d ago",
-      "briefingDate": "2026.11.16",
-      "updatedAt": "11월 16일 브리핑 · 6d ago",
+      "publishedAt": "7d ago",
+      "briefingDate": "2026.11.17",
+      "updatedAt": "11월 17일 브리핑 · 7d ago",
       "tags": [
         "클로드코드",
         "앤트로픽",
@@ -324,10 +324,10 @@
       "videoUrl": "https://www.youtube.com/watch?v=RiaTyJ2POVo",
       "summaryPoints": [
         "글로벌 채널 'ZazenCodes'의 최신 AI 트렌드 영상 (원제: Build a Better Software Factory with Claude Code)",
-        "핵심 내용: Get started with Claude Code on the Max plan: ▻ http://clau.de/ZazenCodes Every developer should build their o...",
+        "핵심 내용: Max 계획에서 Claude Code 시작하기: ▻ http://clau.de/ZazenCodes 모든 개발자는 자신만의 소프트웨어를 구축해야 합니다.",
         "실무 팁: 유튜브 자막 자동번역(한국어) 기능을 켜고 시청하시면 핵심 프롬프트와 화면 구성을 바로 적용할 수 있습니다."
       ],
-      "details": "[2026.11.16 자 브리핑 수집] ZazenCodes 채널의 'Build a Better Software Factory with Claude Code' 영상입니다. (유튜브 업로드: 6d ago)"
+      "details": "[2026.11.17 자 브리핑 수집] ZazenCodes 채널의 'Claude Code로 더 나은 소프트웨어 공장 구축' 영상입니다. (유튜브 업로드: 7d ago)"
     }
   ]
 }
